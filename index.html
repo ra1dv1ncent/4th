@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4th</title>
+  
+  <!-- Leaflet CSS for Map Styling -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- Custom Styling Sheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- SECTION 1: Sweet Hero Welcome -->
+  <header class="hero-section">
+    <div class="hero-content reveal">
+      <span class="heart-icon">❤️</span>
+      <h1>for my sweet little baby</h1>
+      <p>made with 💖 by raldie</p>
+      <a href="#story-start" class="scroll-indicator-btn">scroll lovelove</a>
+    </div>
+  </header>
+
+  <!-- SECTION 2: Scrolling Memories Story -->
+  <main id="story-start" class="story-container">
+    
+    <!-- Story Block 1 -->
+    <section class="story-block">
+      <div class="story-text reveal slide-left">
+        <span class="story-number">09-11-25</span>
+        <h2>layo pa ta</h2>
+        <p>from "nas sir?", and "oo gurl" to "i love you loveyy", and "i miss you loveee"</p>
+      </div>
+      <div class="story-image-wrapper reveal slide-right">
+        <!-- Replace with an actual photo from your img folder later -->
+        <img src="img/firstchat.png" alt="first chat" class="story-img">
+      </div>
+    </section>
+
+    <!-- Story Block 2 (Reversed Layout) -->
+    <section class="story-block reverse">
+      <div class="story-text reveal slide-right">
+        <span class="story-number">06-27-26</span>
+        <h2>pero layo na ta </h2>
+        <p>daily "good mornings" and "good nights". daily "i love you" and "i love you too". i love all of it</p>
+      </div>
+      <div class="story-image-wrapper reveal slide-left">
+        <img src="img/4th.png" alt="today" class="story-img">
+      </div>
+    </section>
+
+    <!-- Transition/Call to Action Area to Map -->
+    <section class="map-gateway">
+      <div class="gateway-content reveal">
+        <h2>memories? naa</h2>
+        <p>i love you so much my love, bisag asa, basta kuyog ta</p>
+        <a href="#map-section" class="explore-map-btn">memory map</a>
+      </div>
+    </section>
+
+  </main>
+
+  <section id="map-section" class="map-wrapper-section">
+    <div class="story-container">
+      
+      <div id="map-box" class="map-container-box reveal">
+        <button id="fullscreen-btn" class="map-control-btn">⤢ fullscreen mode</button>
+        <div id="map"></div>
+      </div>
+
+      <div id="memories-panel" class="memories-panel-container reveal">
+        <div class="panel-header">
+          <h3 id="panel-location-title">select a pin on the map to see our moments lovehh</h3>
+          <button id="clear-panel-btn" class="clear-panel-btn">&times; moments nato</button>
+        </div>
+        <div id="memories-display-grid" class="memories-display-grid"></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Leaflet JS for Map Functionality -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Custom Map and Interaction Script -->
+  <script src="js/script.js"></script>
+
+  <div id="lightbox-modal" class="lightbox-container">
+    <button id="lightbox-close" class="lightbox-close-btn">&times;</button>
+    <img id="lightbox-img" class="lightbox-image-content" src="" alt="happy 4th motmot 💖">
+  </div>
+
+</body>
+</html>
