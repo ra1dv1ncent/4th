@@ -1,0 +1,427 @@
+/* ==========================================================================
+   1. MODERN RESET & DESIGN VARIABLES
+   ========================================================================== */
+:root {
+  --bg-primary: #fffafb;       /* Warm, rose-tinted soft background */
+  --bg-card: #ffffff;
+  --text-main: #2d3748;
+  --text-muted: #718096;
+  --accent: #ff758c;          /* Soft rose/pink primary theme */
+  --accent-hover: #ff5273;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   2. HERO LANDING SECTION
+   ========================================================================== */
+.hero-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background: radial-gradient(circle at center, #ffffff 0%, var(--bg-primary) 100%);
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 15px 0;
+  letter-spacing: -0.02em;
+}
+
+.hero-content p {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 30px auto;
+  line-height: 1.6;
+}
+
+.heart-icon {
+  font-size: 2rem;
+  animation: heartbeat 1.5s infinite;
+  display: inline-block;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.scroll-indicator-btn, .explore-map-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: var(--bg-card);
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(255, 117, 140, 0.15);
+  border: 1px solid rgba(255, 117, 140, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.scroll-indicator-btn:hover, .explore-map-btn:hover {
+  background-color: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 117, 140, 0.3);
+}
+
+/* ==========================================================================
+   3. SCROLL TIMELINE STORY BLOCKS
+   ========================================================================== */
+.story-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.story-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  padding: 80px 0;
+}
+
+.story-block.reverse {
+  flex-direction: row-reverse;
+}
+
+.story-text {
+  flex: 1;
+}
+
+.story-number {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+
+.story-text h2 {
+  font-size: 2rem;
+  margin: 8px 0 16px 0;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+}
+
+.story-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.story-image-wrapper {
+  flex: 1;
+}
+
+.story-img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+}
+
+.map-gateway {
+  text-align: center;
+  padding: 120px 20px;
+}
+
+.map-gateway h2 {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+}
+
+.map-gateway p {
+  color: var(--text-muted);
+  margin-bottom: 30px;
+  font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   4. SCROLL ANIMATION EFFECTS (INTERSECTION OBSERVER UTILITIES)
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal.slide-left { transform: translateX(-40px); }
+.reveal.slide-right { transform: translateX(40px); }
+
+.reveal.active {
+  opacity: 1;
+  transform: translateX(0) translateY(0);
+}
+
+/* ==========================================================================
+   5. MAP BOX COMPONENT WRAPPER
+   ========================================================================== */
+.map-wrapper-section {
+  padding: 60px 0 100px 0;
+  background-color: var(--bg-primary);
+}
+
+.map-container-box {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  background-color: #e5e7eb;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+  z-index: 5;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-control-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1010;
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.map-control-btn:hover {
+  transform: translateY(-1px);
+  color: var(--accent);
+}
+
+.map-container-box.fullscreen-active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0px;
+  z-index: 9999;
+}
+
+/* ==========================================================================
+   6. EXTERIOR RESPONSIVE MEMORIES DISPLAY SIDEBAR PANEL
+   ========================================================================== */
+.memories-panel-container {
+  margin-top: 35px;
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.01);
+  display: block;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #fff5f6;
+  padding-bottom: 15px;
+}
+
+#panel-location-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.clear-panel-btn {
+  background-color: #fff1f3;
+  color: var(--accent);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: none;
+}
+
+.clear-panel-btn:hover {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+/* --- THE DISPLAY ENGINE: COLUMNS ON DESKTOP --- */
+.memories-display-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.memory-display-card {
+  background: var(--bg-primary);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+  border: 1px solid rgba(0, 0, 0, 0.01);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.memory-display-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(255, 117, 140, 0.08);
+}
+
+.card-image-box {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-details {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-date {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.card-description {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   7. MOBILE RESPONSIVE ADAPTATIONS
+   ========================================================================== */
+@media (max-width: 768px) {
+  .story-block, .story-block.reverse {
+    flex-direction: column;
+    gap: 30px;
+    padding: 40px 0;
+  }
+  
+  .hero-content h1 { font-size: 2.2rem; }
+  .story-img { height: 260px; }
+  
+  .map-container-box {
+    height: 420px;
+    border-radius: 16px;
+  }
+
+  .memories-panel-container {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  /* --- THE DISPLAY ENGINE: STACKED ROWS ON MOBILE --- */
+  .memories-display-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .card-image-box {
+    height: 200px;
+  }
+}
+
+/* ==========================================================================
+   9. LIGHTBOX IMAGE EXPANSION SYSTEM
+   ========================================================================== */
+.lightbox-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(26, 32, 44, 0.94);
+  z-index: 10000;
+  
+  display: none; /* Hard hidden by default so it never blocks normal map clicks */
+  
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.lightbox-image-content {
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.lightbox-close-btn:hover {
+  color: var(--accent);
+}
+
+.card-img, .story-img {
+  cursor: zoom-in;
+}
